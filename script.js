@@ -1,231 +1,115 @@
-document.addEventListener("DOMContentLoaded", () => {
+// ============ Dark mode toggle ============
+const htmlEl = document.documentElement;
+const themeToggle = document.getElementById('theme-toggle');
+const themeToggleMobile = document.getElementById('theme-toggle-mobile');
 
-    /* ==========================================
-       DARK MODE TOGGLE
-    ========================================== */
-
-    const themeToggle = document.getElementById("theme-toggle");
-    const html = document.documentElement;
-
-    // Load saved theme
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark") {
-        html.classList.add("dark");
-        updateThemeIcon(true);
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        htmlEl.classList.add('dark');
     } else {
-        html.classList.remove("dark");
-        updateThemeIcon(false);
+        htmlEl.classList.remove('dark');
     }
-
-    // Toggle theme
-    themeToggle?.addEventListener("click", () => {
-
-        html.classList.toggle("dark");
-
-        const isDark = html.classList.contains("dark");
-
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-
-        updateThemeIcon(isDark);
-    });
-
-    function updateThemeIcon(isDark) {
-
-        if (!themeToggle) return;
-
-        themeToggle.textContent = isDark ? "☀️" : "🌙";
-    }
-
-
-    /* ==========================================
-       MOBILE MENU TOGGLE
-    ========================================== */
-
-    const mobileMenuButton = document.getElementById("mobile-menu-button");
-    const mobileMenu = document.getElementById("mobile-menu");
-
-    mobileMenuButton?.addEventListener("click", () => {
-
-        mobileMenu.classList.toggle("hidden");
-    });
-
-    // Close mobile menu when clicking links
-    document.querySelectorAll("#mobile-menu a").forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            mobileMenu.classList.add("hidden");
-        });
-    });
-
-
-    /* ==========================================
-       SCROLL REVEAL ANIMATIONS
-    ========================================== */
-
-    const animatedElements = document.querySelectorAll(
-        ".animate-on-scroll"
-    );
-
-    const observer = new IntersectionObserver((entries) => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.remove(
-                    "opacity-0",
-                    "translate-y-8"
-                );
-
-                entry.target.classList.add(
-                    "opacity-100",
-                    "translate-y-0"
-                );
-
-                observer.unobserve(entry.target);
-            }
-        });
-
-    }, {
-        threshold: 0.15
-    });
-
-
-    animatedElements.forEach(element => {
-
-        element.classList.add(
-            "opacity-0",
-            "translate-y-8",
-            "transition-all",
-            "duration-700"
-        );
-
-        observer.observe(element);
-    });
-
-
-    /* ==========================================
-       ACTIVE NAVIGATION HIGHLIGHT
-    ========================================== */
-
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll("nav a");
-
-    function highlightActiveSection() {
-
-        let currentSection = "";
-
-        sections.forEach(section => {
-
-            const sectionTop = section.offsetTop - 120;
-            const sectionHeight = section.offsetHeight;
-
-            if (
-                window.scrollY >= sectionTop &&
-                window.scrollY <
-                sectionTop + sectionHeight
-            ) {
-                currentSection = section.getAttribute("id");
-            }
-        });
-
-        navLinks.forEach(link => {
-
-            link.classList.remove(
-                "text-shopify",
-                "font-semibold"
-            );
-
-            if (
-                link.getAttribute("href") ===
-                `#${currentSection} `
-            ) {
-                link.classList.add(
-                    "text-shopify",
-                    "font-semibold"
-                );
-            }
-        });
-    }
-
-    window.addEventListener(
-        "scroll",
-        highlightActiveSection
-    );
-
-    highlightActiveSection();
-
-
-    /* ==========================================
-       SMOOTH SCROLLING OFFSET
-    ========================================== */
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-        anchor.addEventListener("click", function (e) {
-
-            const targetId = this.getAttribute("href");
-
-            if (targetId === "#") return;
-
-            const targetElement =
-                document.querySelector(targetId);
-
-            if (!targetElement) return;
-
-            e.preventDefault();
-
-            const offset = 80;
-
-            const targetPosition =
-                targetElement.offsetTop - offset;
-
-            window.scrollTo({
-                top: targetPosition,
-                behavior: "smooth"
-            });
-        });
-    });
-
-
-    /* ==========================================
-       SCROLL TO TOP BUTTON (OPTIONAL)
-    ========================================== */
-
-    const scrollTopButton =
-        document.getElementById("scroll-top");
-
-    if (scrollTopButton) {
-
-        window.addEventListener("scroll", () => {
-
-            if (window.scrollY > 500) {
-
-                scrollTopButton.classList.remove(
-                    "hidden"
-                );
-
-            } else {
-
-                scrollTopButton.classList.add(
-                    "hidden"
-                );
-            }
-        });
-
-        scrollTopButton.addEventListener(
-            "click",
-            () => {
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            }
-        );
-    }
-
+    const icon = theme === 'dark' ? '☀️' : '🌙';
+    if (themeToggle) themeToggle.textContent = icon;
+    if (themeToggleMobile) themeToggleMobile.textContent = icon;
+}
+
+// Respect saved preference, fallback to system preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    applyTheme(savedTheme);
+} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    applyTheme('dark');
+} else {
+    applyTheme('light');
+}
+
+function toggleTheme() {
+    const isDark = htmlEl.classList.contains('dark');
+    const next = isDark ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem('theme', next);
+}
+
+themeToggle?.addEventListener('click', toggleTheme);
+themeToggleMobile?.addEventListener('click', toggleTheme);
+
+
+// ============ Mobile menu ============
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+
+function closeMobileMenu() {
+    mobileMenu?.classList.remove('open');
+    if (mobileMenuIcon) mobileMenuIcon.textContent = '☰';
+    mobileMenuButton?.setAttribute('aria-expanded', 'false');
+}
+
+mobileMenuButton?.addEventListener('click', () => {
+    const isOpen = mobileMenu?.classList.toggle('open');
+    if (mobileMenuIcon) mobileMenuIcon.textContent = isOpen ? '✕' : '☰';
+    mobileMenuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 });
 
+// Close menu when a link is clicked
+mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+});
+
+
+// ============ Scroll reveal animations ============
+const revealTargets = document.querySelectorAll('.animate-on-scroll:not(.is-visible)');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+});
+
+revealTargets.forEach(target => revealObserver.observe(target));
+
+
+// ============ Scroll to top button ============
+const scrollTopBtn = document.getElementById('scroll-top');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+        scrollTopBtn?.classList.remove('hidden');
+    } else {
+        scrollTopBtn?.classList.add('hidden');
+    }
+});
+
+scrollTopBtn?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+
+// ============ Active nav link highlight ============
+const navLinks = document.querySelectorAll('nav a.underline-grow');
+const sections = Array.from(navLinks)
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        const id = `#${entry.target.id}`;
+        const link = document.querySelector(`nav a.underline-grow[href="${id}"]`);
+        if (!link) return;
+        if (entry.isIntersecting) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        }
+    });
+}, {
+    threshold: 0.4
+});
+
+sections.forEach(section => navObserver.observe(section));
