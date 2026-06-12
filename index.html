@@ -138,28 +138,41 @@
             }
         }
 
-        /* ============ Scroll reveal ============ */
+        /* ============ Scroll reveal (direction-aware) ============ */
+        /* Default / scrolling-down state: content rises up into place */
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: translateY(36px) scale(0.985);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* When the section exits upward while the user scrolls up, it resets
+           to a "falling from above" state so it animates back down on re-entry */
+        .animate-on-scroll.from-top {
+            transform: translateY(-36px) scale(0.985);
         }
 
         .animate-on-scroll.is-visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         /* Staggered children inside revealed sections */
         .reveal-item {
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(24px) scale(0.97);
+            transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .from-top .reveal-item {
+            transform: translateY(-24px) scale(0.97);
         }
 
         .is-visible .reveal-item {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         .reveal-item:nth-child(1) {
@@ -203,6 +216,64 @@
                 animation: none !important;
                 opacity: 1 !important;
                 transform: none !important;
+            }
+        }
+
+        /* ============ Mobile card stack (Experience & Projects) ============
+           Each card sticks just below the navbar; the next card slides down
+           over it when scrolling down, and uncovers it again when scrolling
+           back up. Pure-CSS sticky positioning handles both directions. */
+        @media (max-width: 767px) {
+
+            #experience .space-y-8,
+            #projects .grid {
+                display: flex;
+                flex-direction: column;
+                gap: 1.25rem;
+                position: relative;
+            }
+
+            #experience .exp-card,
+            #projects .project-card {
+                position: sticky;
+                top: 84px;
+                margin: 0;
+                transform-origin: top center;
+                transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                    opacity 0.3s ease,
+                    box-shadow 0.3s ease,
+                    border-color 0.35s ease;
+            }
+
+            /* Later cards sit above earlier ones so they visually slide
+               over the previous card as the page scrolls down */
+            #experience .exp-card:nth-of-type(1),
+            #projects .project-card:nth-of-type(1) {
+                z-index: 10;
+            }
+
+            #experience .exp-card:nth-of-type(2),
+            #projects .project-card:nth-of-type(2) {
+                z-index: 20;
+            }
+
+            #experience .exp-card:nth-of-type(3),
+            #projects .project-card:nth-of-type(3) {
+                z-index: 30;
+            }
+
+            #experience .exp-card:nth-of-type(4),
+            #projects .project-card:nth-of-type(4) {
+                z-index: 40;
+            }
+
+            /* Applied via JS as the next card approaches: the current card
+               eases back and dims slightly, like it's being tucked underneath */
+            #experience .exp-card.is-stacked,
+            #projects .project-card.is-stacked {
+                transform: scale(0.94) translateY(-10px);
+                opacity: 0.55;
+                box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.25);
             }
         }
 
@@ -955,15 +1026,21 @@
         });
 
 
-        // ============ Scroll reveal animations ============
-        const revealTargets = document.querySelectorAll('.animate-on-scroll:not(.is-visible)');
+        // ============ Scroll reveal animations (direction-aware) ============
+        const revealTargets = document.querySelectorAll('.animate-on-scroll');
 
         if ('IntersectionObserver' in window) {
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        revealObserver.unobserve(entry.target);
+                    } else {
+                        entry.target.classList.remove('is-visible');
+                        // Exited above the viewport (scrolled past going down) ->
+                        // next time it appears it should fall down from above.
+                        // Exited below the viewport (scrolled past going up) ->
+                        // next time it appears it should rise up from below.
+                        entry.target.classList.toggle('from-top', entry.boundingClientRect.top < 0);
                     }
                 });
             }, {
@@ -987,6 +1064,43 @@
             // No IntersectionObserver support: just show everything
             revealTargets.forEach(target => target.classList.add('is-visible'));
         }
+
+
+        // ============ Mobile card stack (Experience & Projects) ============
+        // As the next card's edge reaches the sticky card underneath it, mark
+        // the underneath card as "stacked" so it eases back and dims slightly,
+        // creating a card-over-card effect. Reverses automatically on scroll up.
+        function initCardStack(selector) {
+            const cards = Array.from(document.querySelectorAll(selector));
+            if (cards.length < 2) return;
+
+            const stickyTop = 84; // matches CSS `top` value for sticky cards
+
+            function update() {
+                if (window.innerWidth >= 768) {
+                    cards.forEach(card => card.classList.remove('is-stacked'));
+                    return;
+                }
+                cards.forEach((card, i) => {
+                    const next = cards[i + 1];
+                    if (!next) {
+                        card.classList.remove('is-stacked');
+                        return;
+                    }
+                    const nextTop = next.getBoundingClientRect().top;
+                    // Once the next card gets within ~48px of the sticky offset,
+                    // treat the current card as covered.
+                    card.classList.toggle('is-stacked', nextTop <= stickyTop + 48);
+                });
+            }
+
+            window.addEventListener('scroll', update, { passive: true });
+            window.addEventListener('resize', update);
+            update();
+        }
+
+        initCardStack('#experience .exp-card');
+        initCardStack('#projects .project-card');
 
 
         // ============ Scroll to top button ============
