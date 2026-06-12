@@ -5,7 +5,7 @@ A Shopify-inspired personal portfolio website showcasing my experience, skills, 
 ## 🌐 Live Demo
 
 ```text
-https://DilipKumar1710.github.io/dilip-portfolio/
+https://DilipKumar1710.github.io/Dilip-Portfolio/
 ```
 
 ---
