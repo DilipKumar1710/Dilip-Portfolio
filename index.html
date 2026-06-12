@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilip Kumar Vaddepally | Shopify Developer</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        shopify: '#95BF47',
+                        'shopify-dark': '#5E8E3E'
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title {
+            @apply text-3xl font-bold mb-8 text-center;
+        }
+    </style>
+</head>
+
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition duration-300">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+            <a href="#" class="text-2xl font-bold text-shopify">
+                Dilip Kumar
+            </a>
+
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#about" class="hover:text-shopify">About</a>
+                <a href="#skills" class="hover:text-shopify">Skills</a>
+                <a href="#experience" class="hover:text-shopify">Experience</a>
+                <a href="#projects" class="hover:text-shopify">Projects</a>
+                <a href="#contact" class="hover:text-shopify">Contact</a>
+
+                <button id="theme-toggle" class="bg-shopify text-white px-4 py-2 rounded-lg">
+                    🌙
+                </button>
+            </div>
+
+        </div>
+        <button id="mobile-menu-button" class="md:hidden text-2xl">
+
+            ☰
+
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 px-6 py-4">
+
+        <div class="flex flex-col gap-4">
+
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+
+        </div>
+
+    </div>
+
+    <!-- Hero -->
+    <section class="min-h-screen flex items-center pt-20 animate-on-scroll">
+
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+
+            <div>
+                <p class="text-shopify font-semibold mb-2">
+                    Shopify Developer
+                </p>
+
+                <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
+                    Dilip Kumar
+                    Vaddepally
+                </h1>
+
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+                    Building high-performing Shopify experiences
+                    that drive conversions and elevate
+                    eCommerce brands.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+
+                    <a href="#projects" class="bg-shopify text-white px-6 py-3 rounded-lg hover:bg-shopify-dark">
+                        View Projects
+                    </a>
+
+                    <a href="assets/resume/Dilip_Kumar_Vaddepally.pdf" download
+                        class="border border-shopify px-6 py-3 rounded-lg hover:bg-shopify hover:text-white">
+                        Download Resume
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+
+                <div class="w-72 h-72 rounded-full bg-shopify/20 flex items-center justify-center">
+
+                    <img src="assets/avatar.svg" alt="Avatar" class="w-60 h-60">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-20 animate-on-scroll">
+
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-4xl font-bold text-center mb-10">
+                About Me
+            </h2>
+
+            <p class="text-lg text-center leading-relaxed">
+
+                I'm a Shopify Frontend Developer with 2+ years of
+                experience delivering high-performance,
+                conversion-focused eCommerce stores for leading
+                Indian brands.
+
+                I specialize in custom Shopify development,
+                Checkout UI Extensions, Shopify Functions,
+                performance optimization, and building seamless
+                shopping experiences that drive measurable results.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- What I Build -->
+    <section class="py-20 bg-gray-100 dark:bg-gray-800 animate-on-scroll">
+
+        <div class="max-w-7xl mx-auto px-6">
+
+            <h2 class="text-4xl font-bold text-center mb-12">
+                What I Build
+            </h2>
+
+            <div class="grid md:grid-cols-4 gap-6">
+
+                <div class="p-6 rounded-xl bg-white dark:bg-gray-700 shadow">
+                    Custom PDP Development
+                </div>
+
+                <div class="p-6 rounded-xl bg-white dark:bg-gray-700 shadow">
+                    Checkout UI Extensions
+                </div>
+
+                <div class="p-6 rounded-xl bg-white dark:bg-gray-700 shadow">
+                    Shopify Functions
+                </div>
+
+                <div class="p-6 rounded-xl bg-white dark:bg-gray-700 shadow">
+                    Cart Drawers
+                </div>
+
+                <div class="p-6 rounded-xl bg-white dark:bg-gray-700 shadow">
+                    PLP Enhancements
+                </div>
+
+                <div class="p-6 rounded-xl bg-white dark:bg-gray-700 shadow">
+                    Performance Optimization
+                </div>
+
+                <div class="p-6 rounded-xl bg-white dark:bg-gray-700 shadow">
+                    Quiz Flows
+                </div>
+
+                <div class="p-6 rounded-xl bg-white dark:bg-gray-700 shadow">
+                    App Integrations
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-20 animate-on-scroll">
+
+        <div class="max-w-6xl mx-auto px-6">
+
+            <h2 class="text-4xl font-bold text-center mb-12">
+                Skills
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-shopify">
+                        Shopify
+                    </h3>
+
+                    <ul class="space-y-2">
+                        <li>Liquid</li>
+                        <li>Metafields</li>
+                        <li>Metaobjects</li>
+                        <li>Shopify Functions</li>
+                        <li>Checkout UI Extensions</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-shopify">
+                        Frontend
+                    </h3>
+
+                    <ul class="space-y-2">
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>Tailwind CSS</li>
+                        <li>jQuery</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-shopify">
+                        Tools
+                    </h3>
+
+                    <ul class="space-y-2">
+                        <li>Git</li>
+                        <li>GitHub</li>
+                        <li>Shopify CLI</li>
+                        <li>Chrome DevTools</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-20 bg-gray-100 dark:bg-gray-800 animate-on-scroll">
+
+        <div class="max-w-7xl mx-auto px-6">
+
+            <h2 class="text-4xl font-bold text-center mb-12">
+                Featured Projects
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+                    <h3 class="text-2xl font-semibold mb-3">Nester</h3>
+
+                    <p>
+                        Full Shopify build featuring custom homepage sections,
+                        bespoke PDP development, and GoKwik integration.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+                    <h3 class="text-2xl font-semibold mb-3">Oracura</h3>
+
+                    <p>
+                        Complete storefront revamp focused on UX improvements
+                        and page performance optimization.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+                    <h3 class="text-2xl font-semibold mb-3">Raymond</h3>
+
+                    <p>
+                        Interactive sections and custom brand pages
+                        developed using Liquid and JavaScript.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+                    <h3 class="text-2xl font-semibold mb-3">MyBorosil</h3>
+
+                    <p>
+                        Virtual bundle implementation designed to improve
+                        customer experience and conversions.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 animate-on-scroll">
+
+        <div class="max-w-3xl mx-auto px-6">
+
+            <h2 class="text-4xl font-bold text-center mb-12">
+                Contact Me
+            </h2>
+
+            <form action="https://formsubmit.co/dilipkumar.vaddepally141@gmail.com" method="POST" class="space-y-6">
+
+                <input type="hidden" name="_captcha" value="false">
+
+                <input type="text" name="name" placeholder="Your Name" required
+                    class="w-full p-4 rounded-lg border dark:bg-gray-800">
+
+                <input type="email" name="email" placeholder="Your Email" required
+                    class="w-full p-4 rounded-lg border dark:bg-gray-800">
+
+                <textarea name="message" rows="6" placeholder="Your Message" required
+                    class="w-full p-4 rounded-lg border dark:bg-gray-800"></textarea>
+
+                <button type="submit" class="bg-shopify text-white px-8 py-3 rounded-lg hover:bg-shopify-dark">
+
+                    Send Message
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center border-t">
+
+        <div class="space-y-3">
+
+            <div class="flex justify-center gap-6">
+
+                <a href="https://github.com/DilipKumar1710" target="_blank" class="hover:text-shopify">
+
+                    GitHub
+
+                </a>
+
+                <a href="https://linkedin.com/in/dilipkumarvaddepally" target="_blank" class="hover:text-shopify">
+
+                    LinkedIn
+
+                </a>
+
+            </div>
+
+            <p>
+                © 2026 Dilip Kumar Vaddepally.
+                Built with HTML, Tailwind CSS & JavaScript.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+    <button
+    id="scroll-top"
+    class="hidden fixed bottom-6 right-6 bg-shopify text-white p-4 rounded-full shadow-lg">
+    ↑
+    </button>
+
+</body>
+
+</html>

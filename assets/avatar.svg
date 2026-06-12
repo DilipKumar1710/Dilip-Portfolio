@@ -1,0 +1,127 @@
+```svg
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Background Circle -->
+    <circle cx="200" cy="200" r="180" fill="#95BF47" fill-opacity="0.15"/>
+
+    <!-- Decorative Circles -->
+    <circle cx="80" cy="90" r="15" fill="#95BF47"/>
+    <circle cx="320" cy="120" r="10" fill="#95BF47" fill-opacity="0.7"/>
+    <circle cx="300" cy="300" r="12" fill="#95BF47"/>
+
+    <!-- Code Brackets -->
+    <text x="60" y="210"
+          font-family="monospace"
+          font-size="40"
+          fill="#95BF47"
+          font-weight="bold">
+        &lt;/&gt;
+    </text>
+
+    <!-- Laptop -->
+    <rect x="120" y="230"
+          width="160"
+          height="95"
+          rx="8"
+          fill="#2D3748"/>
+
+    <rect x="135" y="245"
+          width="130"
+          height="65"
+          rx="4"
+          fill="#1A202C"/>
+
+    <!-- Shopify Icon -->
+    <path d="M190 255
+             C188 250 184 248 180 248
+             C175 248 172 252 172 257
+             C172 261 174 264 179 266
+             L183 268
+             C186 269 187 271 187 273
+             C187 276 185 278 181 278
+             C177 278 173 276 170 273
+             L165 281
+             C170 285 176 287 182 287
+             C191 287 197 281 197 273
+             C197 267 194 263 187 260
+             L183 258
+             C180 257 179 255 179 253
+             C179 251 181 249 184 249
+             C187 249 190 251 192 253
+             Z"
+          fill="#95BF47"/>
+
+    <!-- Head -->
+    <circle cx="200" cy="145"
+            r="55"
+            fill="#F6D2B8"/>
+
+    <!-- Hair -->
+    <path d="M145 145
+             C145 105 170 80 200 80
+             C235 80 255 105 255 140
+             C250 125 238 115 220 115
+             C200 115 190 122 180 130
+             C170 138 155 142 145 145Z"
+          fill="#2D3748"/>
+
+    <!-- Eyes -->
+    <circle cx="182" cy="150" r="4" fill="#2D3748"/>
+    <circle cx="218" cy="150" r="4" fill="#2D3748"/>
+
+    <!-- Smile -->
+    <path d="M185 172
+             Q200 184 215 172"
+          stroke="#2D3748"
+          stroke-width="3"
+          stroke-linecap="round"
+          fill="none"/>
+
+    <!-- Body -->
+    <path d="M145 260
+             C145 220 165 200 200 200
+             C235 200 255 220 255 260
+             V280
+             H145
+             Z"
+          fill="#2D3748"/>
+
+    <!-- Shirt -->
+    <path d="M165 260
+             C165 230 180 215 200 215
+             C220 215 235 230 235 260
+             V280
+             H165
+             Z"
+          fill="#95BF47"/>
+
+    <!-- Liquid Code Badge -->
+    <rect x="170"
+          y="235"
+          width="60"
+          height="22"
+          rx="11"
+          fill="#FFFFFF"/>
+
+    <text x="182"
+          y="250"
+          font-family="Arial, sans-serif"
+          font-size="11"
+          font-weight="bold"
+          fill="#5E8E3E">
+        LIQUID
+    </text>
+
+    <!-- Shopify Developer Text -->
+    <text x="200"
+          y="350"
+          text-anchor="middle"
+          font-family="Arial, sans-serif"
+          font-size="16"
+          font-weight="600"
+          fill="#5E8E3E">
+        Shopify Developer
+    </text>
+
+</svg>
+```
